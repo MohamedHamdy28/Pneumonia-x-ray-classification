@@ -21,7 +21,7 @@ def home(path):
 def upload_file():
     
     if 'file' not in request.files:
-        return 'No file part in the request', 400
+        return json.dumps({'error': 'No file part in the request'}), 400
 
     file = request.files['file']
 
@@ -34,12 +34,12 @@ def upload_file():
     file_extension = str(os.path.splitext(file.filename)[1])
     print(file_extension)
     if file_extension not in allowed_extensions:
-        return f"File should have one of {allowed_extensions} extensions", 400
+        return json.dumps({'error': f"File should have one of {allowed_extensions} extensions"}), 400
 
     filename = str(uuid.uuid4()) + file_extension
 
     
-    filepath = os.path.join('images', filename)
+    filepath = os.path.join('imageStorage', filename)
     file.save(filepath)
 
     return json.dumps({'result': model.get_prediction(filepath) })

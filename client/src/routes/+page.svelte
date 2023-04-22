@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { error } from '@sveltejs/kit';
 	import { onMount } from 'svelte';
 	import { element } from 'svelte/internal';
 
@@ -6,21 +7,57 @@
 	let fileDragger: HTMLDivElement;
 	let fileName: string;
 
-	function draggerHandler(e: any) {
-		let file = e.dataTransfer?.files[0] as File;
+	interface ResponseData{
+		result?: string;
+		error?: string;
+	}
+
+	function draggerHandler(event: DragEvent) {
+		const files = event.dataTransfer?.files;
+		if (files?.length){
+			const file = files[0];
+			uploadFileHandler(file);
+		}
+
+	}
+
+	function selectorHandler(event: Event) {
+		const inputElement = event.target as HTMLInputElement;
+		const file = inputElement.files?.[0] as File;
+
+		if (!file) return;
+
 		uploadFileHandler(file);
 	}
 
-	function selectorHandler(e: any) {
-		//To Do
-		let file = e.target.files?.[0] as File;
-		console.log(e);
-		uploadFileHandler(file);
+	async function uploadFileHandler(file: File) {
+		const formData = new FormData();
+		formData.append('file', file);
+		
+		const response = await fetch('/upload',{
+			method: 'POST',
+			body: formData
+		});
+
+		await handleResponse(response);
 	}
 
-	function uploadFileHandler(file: File) {
-		console.log(file);
-		fileName = file.name;
+	async function handleResponse(response: Response):Promise<string>{
+		if (response.status == 200){
+			const data: ResponseData = await response.json();
+			if (data.result){
+				alert(`Result: ${data.result}`)
+				return data.result;
+			}
+			else{
+				throw new Error(`ERROR: ${JSON.stringify(data)}`);
+			}
+		}else{
+			const errorData: ResponseData = await response.json();
+			const errorMessage: string = errorData.error || 'Unknown error occured';
+			alert(errorMessage)
+			throw new Error(errorMessage);
+		}
 	}
 </script>
 
