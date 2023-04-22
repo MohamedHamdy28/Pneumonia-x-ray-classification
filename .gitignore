@@ -1,5 +1,6 @@
 __pycache__/
 xenv/
+env/
 imageStorage/*
 
 client/.DS_Store
