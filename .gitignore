@@ -8,7 +8,8 @@ client/node_modules
 client/build
 client/.svelte-kit
 client/package
-client.env
+client/package-lock.json
+client/.env
 client/.env.*
 client/!.env.example
 client/vite.config.js.timestamp-*

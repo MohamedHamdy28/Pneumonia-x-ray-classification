@@ -1,9 +1,4 @@
 <script lang="ts">
-	import { error } from '@sveltejs/kit';
-	import { onMount } from 'svelte';
-	import { element } from 'svelte/internal';
-
-	let fileSelector: HTMLInputElement;
 	let fileDragger: HTMLDivElement;
 	let fileName: string;
 
@@ -34,7 +29,7 @@
 		const formData = new FormData();
 		formData.append('file', file);
 		
-		const response = await fetch('/upload',{
+		const response = await fetch('/api/upload',{
 			method: 'POST',
 			body: formData
 		});

@@ -1,7 +1,27 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import { base } from '$app/paths';
+	import { onDestroy, onMount } from "svelte";
+	import { getUser, setUser} from "../routes/auth";
+    import { user } from "../stores";
     $: routeId = $page.route.id;
+
+    let username = '';
+
+    const unsubscribe = user.subscribe(
+        value => {
+            if(!value){
+                username = '';
+            }else{
+                username = value.username;
+            }
+        }
+    );
+
+    onMount(async ()=>{
+        setUser(await getUser());
+    })
+    onDestroy(unsubscribe);
 </script>
 
 <div id="navbar">
@@ -10,11 +30,27 @@
         <a href="{base}/" class:active={routeId == "/"}>Lung X-Ray</a>
         <a href="{base}/soon" class:active={routeId == "/soon"}>Coming Soon</a>
     </div>
-    <a href="{base}/login">
-        <div id="login">
-            Login
-        </div>
-    </a>
+    {#if !username }
+        <a href="{base}/login">
+            <div id="login">
+                Login
+            </div>
+        </a>
+    {:else}
+    <div id="links-container">
+        <a href="{base}/profile">
+            <div id="profile">
+                Profile
+            </div>
+        </a>
+        <a href="{base}/logout">
+            <div id="logout">
+                Logout
+            </div>
+        </a>
+    </div>
+    {/if}
+    
 </div>
 
 <style>
