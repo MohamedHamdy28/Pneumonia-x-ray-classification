@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {login, setUser} from '../auth'
+    import {login, setUser} from '../../auth'
 	import { goto } from '$app/navigation';
 
     let username: string = '';

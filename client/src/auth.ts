@@ -1,4 +1,4 @@
-import {user} from '../stores'
+import {user} from './stores'
 
 export async function login(username: string, password: string): Promise<User>{
     const response = await fetch('/api/login',{

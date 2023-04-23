@@ -2,7 +2,7 @@
     import { page } from "$app/stores";
     import { base } from '$app/paths';
 	import { onDestroy, onMount } from "svelte";
-	import { getUser, setUser} from "../routes/auth";
+	import { getUser, setUser} from "../auth";
     import { user } from "../stores";
     $: routeId = $page.route.id;
 
