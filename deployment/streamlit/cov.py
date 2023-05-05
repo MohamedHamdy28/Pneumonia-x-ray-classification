@@ -8,6 +8,7 @@ import numpy as np
 from skimage import transform
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, MaxPool2D, Flatten, Dropout, BatchNormalization
+import tensorflow as tf
 
 
 def create_model():
@@ -66,10 +67,7 @@ def get_prediction(img_path):
 
 st.write("Pneumonia x-ray classification")
 st.markdown("### Pneumonia recognition")
-model = create_model()
-model.load_weights(
-    r'model/weights.ckpt')
-
+model = tf.keras.models.load_model('my_model.h5')
 # Create a file upload field
 uploaded_file = st.file_uploader(
     "Choose the x-ray scan image", type=["jpg", "jpeg", "png"])
