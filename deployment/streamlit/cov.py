@@ -68,7 +68,7 @@ st.write("Pneumonia x-ray classification")
 st.markdown("### Pneumonia recognition")
 model = create_model()
 model.load_weights(
-    r'/app/pneumonia-x-ray-classification/deployment/streamlit/model/weights.ckpt')
+    r'model/weights.ckpt')
 
 # Create a file upload field
 uploaded_file = st.file_uploader(
