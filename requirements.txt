@@ -1,0 +1,8 @@
+flask
+requests
+Pillow
+numpy
+scikit-image
+keras
+tensorflow
+
