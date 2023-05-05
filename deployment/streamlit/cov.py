@@ -9,6 +9,7 @@ from skimage import transform
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, MaxPool2D, Flatten, Dropout, BatchNormalization
 
+
 def create_model():
     model = Sequential()
     model.add(Conv2D(32, (3, 3), strides=1, padding='same',
@@ -38,6 +39,7 @@ def create_model():
                   loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
+
 def preprocess(np_image):
     np_image = Image.open(np_image)
     np_image = np.array(np_image).astype('float32')/255
@@ -65,7 +67,8 @@ def get_prediction(img_path):
 st.write("Pneumonia x-ray classification")
 st.markdown("### Pneumonia recognition")
 model = create_model()
-model.load_weights(r'../model/weights.ckpt')
+model.load_weights(
+    r'/app/pneumonia-x-ray-classification/deployment/streamlit/model/weights.ckpt')
 
 # Create a file upload field
 uploaded_file = st.file_uploader(
