@@ -67,7 +67,8 @@ def get_prediction(img_path):
 
 st.write("Pneumonia x-ray classification")
 st.markdown("### Pneumonia recognition")
-model = tf.keras.models.load_model('my_model.h5')
+model = tf.keras.models.load_model(
+    r'/app/pneumonia-x-ray-classification/deployment/streamlit/my_model.h5')
 # Create a file upload field
 uploaded_file = st.file_uploader(
     "Choose the x-ray scan image", type=["jpg", "jpeg", "png"])
