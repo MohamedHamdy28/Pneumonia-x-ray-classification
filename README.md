@@ -1,5 +1,5 @@
 # Pneumonia X-Ray Classification
-
+![Alt text](i.png)
 ## Introduction
 This repository contains code for classifying Pneumonia X-Ray images. 
 
